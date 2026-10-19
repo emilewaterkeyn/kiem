@@ -66,6 +66,25 @@
     start();
   }
 
+  // Project clips: play silently while in view, unless the visitor prefers reduced motion or paused it
+  var clips = Array.prototype.slice.call(document.querySelectorAll('video[data-autoplay]'));
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (clips.length && !still && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting && !v.userPaused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else if (!e.isIntersecting && !v.paused) { v.autoPause = true; v.pause(); }
+      });
+    }, { threshold: 0.5 });
+    clips.forEach(function (v) {
+      v.muted = true;
+      v.addEventListener('pause', function () { if (!v.autoPause) v.userPaused = true; v.autoPause = false; });
+      v.addEventListener('play', function () { v.userPaused = false; });
+      io.observe(v);
+    });
+  }
+
   // Photo credit on the homepage
   var info = document.querySelector('.info');
   var credit = document.querySelector('.credit-text');

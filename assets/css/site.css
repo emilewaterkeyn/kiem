@@ -221,3 +221,4 @@ strong { font-weight: 600; }
   .cards-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .refs a:hover, .credit-text a:hover { color: var(--hover); text-decoration: none; }
+.m-video video { display: block; width: 100%; height: auto; background: var(--surface); }

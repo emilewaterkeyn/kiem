@@ -9,6 +9,7 @@
   --surface: #EFEFEC;
   --brand: #80CC28;       /* lime of the business card: only the logo */
   --brand-ground: #56965B;
+  --hover: #2346C8;       /* hover colour for project links */
   --font: "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --fs: clamp(17px, 1.47vw, 24px);
   --fs-big: clamp(26px, 2.95vw, 46px);
@@ -114,7 +115,8 @@ main { display: block; }
 .card-title { display: block; margin-top: .47em; font-weight: 600; }
 .card-line { display: block; margin-top: .63em; }
 .card-by { display: block; margin-top: .4em; color: var(--muted); font-size: max(13px, .7em); }
-.card:hover .card-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .14em; }
+.card .card-title, .card .card-line { transition: color .15s ease; }
+.card:hover .card-title, .card:hover .card-line, .card:focus-visible .card-title { color: var(--hover); text-decoration: none; }
 .after { margin-top: 1.25em; }
 
 /* Projects page controls */
@@ -129,7 +131,7 @@ main { display: block; }
 .list th, .list td { text-align: left; font-weight: 400; vertical-align: top; padding: .25em 1em .9em 0; border-top: 1px solid var(--rule); }
 .list thead th { padding-bottom: 1.6em; }
 .list .year { text-align: right; padding-right: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.list a:hover { text-decoration: underline; }
+.list a:hover { text-decoration: none; color: var(--hover); }
 .list .name { font-weight: 600; }
 
 /* Project page */
@@ -218,3 +220,4 @@ strong { font-weight: 600; }
 @media (min-width: 761px) and (max-width: 1100px) {
   .cards-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+.refs a:hover, .credit-text a:hover { color: var(--hover); text-decoration: none; }
